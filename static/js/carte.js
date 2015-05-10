@@ -14,7 +14,7 @@ function addMarker(map, latlng, nb_places_libres, nom,nbtot,tel,prix){
     google.maps.event.addListener(marker, 'click', function(){
             var form = '<div id="marker_option" >'+
                 "Parking "+'<font color="green">'+ nom +'</font>' +"</br> Nbre de place disponible : "+ '<font color="red">'
-                +nb_places_libres+'</font>'+ '</br> Nbre total de place: ' + '<font color="red">'+nbtot+'</font>'+'</br> Tel :' +'<font color="blue">'+tel + '</font>'+'</br> Tarif :'+'<font color="green">'+prix+' DT</font>'
+                +nb_places_libres+'</font>'+ '</br> Nbre total de place: ' + '<font color="red">'+nbtot+'</font>'+'</br> Tel :' +'<font color="blue">'+tel + '</font>'+'</br> Tarif :'+'<font color="green">'+prix/1000.0+' DT</font>'
                 '</div>';
             var infoWin = new google.maps.InfoWindow({content: form});
             infoWin.open(map, marker);
