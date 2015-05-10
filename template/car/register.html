@@ -1,6 +1,6 @@
 {% extends 'car/base.html' %}
 {% load static %}
-{% block title %} register here ! {% endblock %}
+{% block title %} Inscription {% endblock %}
 
 
 
@@ -48,7 +48,7 @@
 <div class="hero-unit"> 
         <form  method="post" action="/car/inscription/" enctype="multipart/form-data">
             {% csrf_token %}
-            <h2 > S'enregistrer ici</h2>
+            <h2 > S'inscrire</h2>
       
 
             {% for field in user_form.visible_fields %}

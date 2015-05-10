@@ -33,22 +33,13 @@ def register(request):
 		else :
 			print owner_form.errors
 	else:
-		
 		owner_form= userform()
 		
 	return render_to_response('car/register.html',{'user_form':owner_form, 'registred': registred}, context)
-
-
-
-
-
-
  
 def accueil(request):
 	context = RequestContext(request)
 	return render_to_response('car/index.html',{},context)
-
-
 
 def user_login(request):
 	context= RequestContext(request)
@@ -72,14 +63,10 @@ def user_login(request):
 	else:
 			return render_to_response('car/login.html', {}, context)
 
-
-
 @login_required
 def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/car/')
-
-
 
 @login_required
 def add_parking(request):
@@ -109,7 +96,6 @@ def list_park_owner(request):
 	list_park=parking.objects.filter(proprietaire=ownercon)
 	return render_to_response('car/list_parking.html',{'list_park':list_park},context)
 
-
 @login_required
 def supprimer(request):
 	context=RequestContext(request)
@@ -129,14 +115,14 @@ def supprimer(request):
 def carte(request):
     return render(request, 'car/carte.html', locals())
 
-
 def filterpark(request):
     if request.method == "GET":
         park = parking.objects.filter(accept=True)
-        park = list(park.values_list("namepark", "position","nbplacevide","nbrplace","telephone","genre"))
+        park = list(park.values_list("namepark", "position","nbplacevide","nbrplace","telephone","prix"))
         return HttpResponse(json.dumps(park, cls=DjangoJSONEncoder), content_type="application/json")
     else:
         return HttpResponse()
+
 @login_required
 def gerer(request):
 	context   =  RequestContext(request)
@@ -154,7 +140,7 @@ def gerer(request):
 			f=request.POST[nbpv]
 			i.nbplacevide =f
 			i.save()
-		return accueil(request)
+		#return accueil(request)
 
 	return render_to_response('car/gerer_parking.html',{'list_park':list_park},context)	
 
@@ -184,15 +170,16 @@ def filterParkings(request):
 		lon = len(lista)
 		for j in range(0,lon) :	
 			h={
-				"id"	:		lista[j].id,
-				"name" 	: 		lista[j].namepark,
-				"adresse" :		lista[j].place,
+				"id"		:	lista[j].id,
+				"name" 		: 	lista[j].namepark,
+				"adresse" 	:	lista[j].place,
 				"telephone" :	lista[j].telephone,
 				"empty_places": lista[j].nbplacevide,
 				"places_count": lista[j].nbrplace,
 				"hour_price" : 	str(lista[j].genre),
-				"lat"  : 		str(lista[j].position.latitude),
-				"long" : 		str(lista[j].position.longitude)
+				"lat"  		: 	str(lista[j].position.latitude),
+				"long" 		: 	str(lista[j].position.longitude),
+				"tarif"		:	str(lista[j].prix)
 			}
 			filter_parking.append(h)
 		return HttpResponse(json.dumps(filter_parking), content_type="application/json")
