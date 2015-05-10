@@ -176,10 +176,9 @@ def filterParkings(request):
 				"telephone" :	lista[j].telephone,
 				"empty_places": lista[j].nbplacevide,
 				"places_count": lista[j].nbrplace,
-				"hour_price" : 	str(lista[j].genre),
+				"hour_price" : 	str(lista[j].prix),
 				"lat"  		: 	str(lista[j].position.latitude),
-				"long" 		: 	str(lista[j].position.longitude),
-				"tarif"		:	str(lista[j].prix)
+				"long" 		: 	str(lista[j].position.longitude)
 			}
 			filter_parking.append(h)
 		return HttpResponse(json.dumps(filter_parking), content_type="application/json")
